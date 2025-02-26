@@ -79,8 +79,8 @@ const Navbar = () => {
           {/* dekstop menu */}
           <div className='hidden lg:flex items-center space-x-6'>
             {
-              Object.keys(menuItems).map((key) => (
-                <div className='relative'>
+              Object.keys(menuItems).map((key, idx) => (
+                <div key={idx} className='relative'>
                   <button onClick={() => toggleDropdown(key)} className='hover:text-gray-400 cursor-pointer flex items-center px-3 py-2 text-sm rounded-md font-medium'>
                     {menuItems[key].title}
                     <MdKeyboardArrowDown className={`ml-2 h-5 w-5 transition-transform ${activeDropdown === key ? 'transform rotate-180' : ""}`} /></button>
@@ -90,14 +90,34 @@ const Navbar = () => {
                     activeDropdown === key && (
 
                       <div className='absolute left-0 mt-2 w-screen max-w-md bg-white text-black shadow-lg rounded-md py-1 pl-1 pr-1'>
-                        <div>
+                        <div className='grid md:grid-cols-2 grid-cols-1 gap-12 p-4' >
                           {
-                            key === 'platform' ? (<div>Platform name</div>) : <div className='space-y-2 flex flex-col gap-2'>
+                            key === 'platform' ? (menuItems[key]?.sections?.map((section, idx) => (
+                              <div key={idx}>
+                                <h3 className='text-xs font-semibold text-gray-500 tracking-wider mb-2'>{section?.title}</h3>
+
+                                <div>
+                                  {
+                                    section.items.map((item, idx) => (
+                                      <Link to={`/${key}/${item.name.toLowerCase()}`} className='group flex items-start p-2 rounded-lg hover:bg-gray-300'>
+                                        <div className='px-2'>
+
+                                           
+
+                                          <p className='text-xm font-medium text-black'>{item?.name} {item.isNew &&(<span className='ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue.800'>NEW</span>)}</p>
+                                          <p className='text-sm text-gray-600 '>{item?.desc}</p>
+                                        </div>
+                                      </Link>
+                                    ))
+                                  }
+
+                                </div>
+                              </div>))) : <div className='space-y-2 flex flex-col gap-2'>
                               {menuItems[key].items.map((item, idx) => (
                                 <Link to={`/${key}/${item.name.toLowerCase()}`} className='group flex items-start p-2 rounded-lg hover:bg-gray-300'>
                                   <div className='px-2'>
-                                     <p className='text-xm font-medium'>{item.name}</p>
-                                     <p className='text-sm text-gray-600 '>{item.desc}</p>
+                                    <p className='text-xm font-medium'>{item.name}</p>
+                                    <p className='text-sm text-gray-600 '>{item.desc}</p>
                                   </div>
                                 </Link>
                               ))}

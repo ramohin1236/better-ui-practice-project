@@ -69,7 +69,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className='bg-black text-white fixed top-0 left-0 right-0 border-b border-white/10'>
+    <nav className='bg-black text-white fixed top-0 left-0 right-0 border-b border-white/10 z-2 '>
       <div className='container mx-auto px-4 py-2 sm:px-6 lg:px-8'>
         <div className='flex justify-between h-16 items-center'>
           {/* logo */}
@@ -77,7 +77,7 @@ const Navbar = () => {
             <Link to='/' className='text-2xl'> <span className='text-blue-700'>ReactTutor</span> UI</Link>
           </div>
           {/* dekstop menu */}
-          <div className='hidden lg:flex items-center space-x-6'>
+          <div className='hidden lg:flex items-center space-x-6 '>
             {
               Object.keys(menuItems).map((key, idx) => (
                 <div key={idx} className='relative'>
@@ -89,7 +89,7 @@ const Navbar = () => {
                   {
                     activeDropdown === key && (
 
-                      <div className='absolute left-0 mt-2 w-screen max-w-lg bg-white text-black shadow-lg rounded-md py-1 pl-1 pr-1'>
+                      <div className='absolute left-0 mt-2 w-screen max-w-lg bg-white text-black shadow-lg rounded-md py-1 pl-1 pr-1 '>
                         <div className='grid md:grid-cols-2 grid-cols-1 gap-12 p-4' >
                           {
                             key === 'platform' ? (menuItems[key]?.sections?.map((section, idx) => (
